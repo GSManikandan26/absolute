@@ -1,6 +1,8 @@
 import 'package:absolute/usable/input_field.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
+import '../home/homepage.dart';
 import '../usable/TextField.dart';
 
 class UserLoginForm extends StatefulWidget {
@@ -11,12 +13,26 @@ class UserLoginForm extends StatefulWidget {
 }
 
 class _UserLoginFormState extends State<UserLoginForm> {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _phoneNumberController = TextEditingController();
   double _dialogHeight = 0.0;
   final double _dialogWidth = 400;
   Color customColor = const Color.fromRGBO(33, 84, 115, 1.0);
+
+  final TextEditingController _userNameController = TextEditingController();
+  final TextEditingController _userEmailController = TextEditingController();
+  final TextEditingController _phoneNumberController = TextEditingController();
+  final TextEditingController _addressController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _reEnterPasswordController = TextEditingController();
+
+  // String variables for storing input values
+  String userName = '';
+  String userEmail = '';
+  String phoneNumber = '';
+  String address = '';
+  String password = '';
+  String reEnterPassword = '';
+
+  final _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -26,6 +42,55 @@ class _UserLoginFormState extends State<UserLoginForm> {
         _dialogHeight = 800; // Set your preferred height
       });
     });
+
+    // Add onChanged listeners to update string variables
+    _userNameController.addListener(() {
+      setState(() {
+        userName = _userNameController.text;
+      });
+    });
+
+    _userEmailController.addListener(() {
+      setState(() {
+        userEmail = _userEmailController.text;
+      });
+    });
+
+    _phoneNumberController.addListener(() {
+      setState(() {
+        phoneNumber = _phoneNumberController.text;
+      });
+    });
+
+    _addressController.addListener(() {
+      setState(() {
+        address = _addressController.text;
+      });
+    });
+
+    _passwordController.addListener(() {
+      setState(() {
+        password = _passwordController.text;
+      });
+    });
+
+    _reEnterPasswordController.addListener(() {
+      setState(() {
+        reEnterPassword = _reEnterPasswordController.text;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    // Dispose of the controllers when the widget is disposed
+    _userNameController.dispose();
+    _userEmailController.dispose();
+    _phoneNumberController.dispose();
+    _addressController.dispose();
+    _passwordController.dispose();
+    _reEnterPasswordController.dispose();
+    super.dispose();
   }
 
   @override
@@ -43,7 +108,7 @@ class _UserLoginFormState extends State<UserLoginForm> {
         padding: const EdgeInsets.only(top: 20.0, right: 6, left: 6),
         child: SingleChildScrollView(
           child: Form(
-            key: _formKey,
+            key: _formKey, // Assign the form key
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -84,6 +149,7 @@ class _UserLoginFormState extends State<UserLoginForm> {
                 InputField(
                   title: 'User Name',
                   isSecured: false,
+                  controller: _userNameController,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'User Name is required';
@@ -95,6 +161,7 @@ class _UserLoginFormState extends State<UserLoginForm> {
                 InputField(
                   title: 'User Email',
                   isSecured: false,
+                  controller: _userEmailController,
                   validator: (value) {
                     if (value == null || value.isEmpty || !value.contains('@') || !value.contains('.')) {
                       return 'Enter a valid email address';
@@ -105,20 +172,21 @@ class _UserLoginFormState extends State<UserLoginForm> {
                 const SizedBox(height: 20),
                 CustomTextField(
                   title: 'Phone Number',
-                  isSecured: false,
                   controller: _phoneNumberController,
-                  keyboardType: TextInputType.phone,
+                  isSecured: false,
                   validator: (value) {
                     if (value == null || value.isEmpty || value.length != 10) {
                       return 'Enter a valid 10-digit phone number';
                     }
                     return null;
                   },
+                  keyboardType: TextInputType.phone,
                 ),
                 const SizedBox(height: 20),
                 InputField(
                   title: 'Address',
                   isSecured: false,
+                  controller: _addressController,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Address is required';
@@ -146,8 +214,9 @@ class _UserLoginFormState extends State<UserLoginForm> {
                 ),
                 const SizedBox(height: 20),
                 InputField(
-                  title: 'Re-enter Password',
+                  title: 'Re-Enter Password',
                   isSecured: true,
+                  controller: _reEnterPasswordController,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Re-enter your password';
@@ -163,10 +232,49 @@ class _UserLoginFormState extends State<UserLoginForm> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     ElevatedButton(
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          // Perform the login or registration action here
-                          // If all validations pass
+                      onPressed: () async {
+                        if (password != null && password.isNotEmpty) {
+                          try {
+                            UserCredential userCredential = await FirebaseAuth.instance
+                                .createUserWithEmailAndPassword(email: userEmail, password: password); // Use ownerEmail and password from your form
+                            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                              backgroundColor: Colors.black,
+                              content: Text(
+                                "Registered Successfully",
+                                style: TextStyle(fontSize: 20.0,color: Colors.white),
+                              ),
+                            ));
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => const HomePage()),
+                            );
+                          } on FirebaseAuthException catch (e) {
+                            if (e.code == 'weak-password') {
+                              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                                backgroundColor: Colors.orangeAccent,
+                                content: Text(
+                                  "Password Provided is too Weak",
+                                  style: TextStyle(fontSize: 18.0),
+                                ),
+                              ));
+                            } else if (e.code == "email-already-in-use") {
+                              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                                backgroundColor: Colors.orangeAccent,
+                                content: Text(
+                                  "Account Already exists",
+                                  style: TextStyle(fontSize: 18.0),
+                                ),
+                              ));
+                            }
+                          }
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                            backgroundColor: Colors.redAccent,
+                            content: Text(
+                              "Please Enter a Password",
+                              style: TextStyle(fontSize: 20.0),
+                            ),
+                          ));
                         }
                       },
                       style: ButtonStyle(

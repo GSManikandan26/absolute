@@ -1,6 +1,7 @@
 import 'package:absolute/animatedbox/login_options.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import '../animatedbox/forgetpassword.dart';
 import '../owner/dashboard.dart';
 import 'loading_screen.dart';
 
@@ -68,6 +69,24 @@ class _ProfileLoginScreenState extends State<ProfileLoginScreen> {
                         title: 'Password',
                         isPassword: true,
                         controller: _passwordController,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      GestureDetector(
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=> const ForgotPassword()));
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.only(right: 24.0),
+                          alignment: Alignment.bottomRight,
+                          child: const Text(
+                            "Forgot password?",
+                            style: TextStyle(
+                              color: customColor,
+                            ),
+                          ),
+                        ),
                       ),
                       const SizedBox(height: 15.0),
                       Row(

@@ -5,6 +5,8 @@ import 'package:absolute/usable/input_field.dart';
 import 'package:absolute/user/user_home.dart';
 import 'package:flutter/material.dart';
 
+import 'forgetpassword.dart';
+
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
@@ -186,6 +188,24 @@ class _LoginScreenState extends State<LoginScreen> {
                   isSecured: true,
                   controller: _passwordController,
                   validator: _validatePassword,
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                GestureDetector(
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=> const ForgotPassword()));
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.only(right: 24.0),
+                    alignment: Alignment.bottomRight,
+                    child: Text(
+                      "Forgot password?",
+                      style: TextStyle(
+                        color: customColor,
+                      ),
+                    ),
+                  ),
                 ),
                 const SizedBox(
                   height: 20,

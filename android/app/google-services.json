@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "40214080819",
+    "project_id": "absolute-f1c64",
+    "storage_bucket": "absolute-f1c64.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:40214080819:android:b3ce21d3ca3a67877e6246",
+        "android_client_info": {
+          "package_name": "com.example.absolute"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCY4OTzey48yTSjrmWL_gbTQ-4Sr42i11o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
