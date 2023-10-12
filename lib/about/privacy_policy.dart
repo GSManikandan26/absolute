@@ -220,7 +220,7 @@ class PrivacyPolicyPage extends StatelessWidget {
                   child: Column(
                     children: [
                       Padding(
-                        padding: EdgeInsets.only(top:20.0),
+                        padding: const EdgeInsets.only(top:20.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
@@ -229,7 +229,7 @@ class PrivacyPolicyPage extends StatelessWidget {
                               onTap: () {
                                 launch('https://www.instagram.com/absolute_stay_coporate_livings/'); // Open Instagram URL
                               },
-                              child: Icon(
+                              child: const Icon(
                                 FontAwesomeIcons.instagram,
                               ),
                             ),
@@ -238,7 +238,7 @@ class PrivacyPolicyPage extends StatelessWidget {
                               onTap: () {
                                 launch('https://www.facebook.com/absolutestaycorporate'); // Open Facebook URL
                               },
-                              child: Icon(
+                              child: const Icon(
                                 FontAwesomeIcons.facebook,
                               ),
                             ),
@@ -247,7 +247,7 @@ class PrivacyPolicyPage extends StatelessWidget {
                               onTap: () {
                                 launch('https://twitter.com/AbsoluteStay'); // Open Twitter URL
                               },
-                              child: Icon(
+                              child: const Icon(
                                 FontAwesomeIcons.twitter,
                               ),
                             ),

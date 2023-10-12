@@ -83,7 +83,7 @@ class _ProfileLoginScreenState extends State<ProfileLoginScreen> {
                           child: const Text(
                             "Forgot password?",
                             style: TextStyle(
-                              color: customColor,
+                              color: customColor,fontSize: 16,
                             ),
                           ),
                         ),

@@ -286,7 +286,7 @@ class _UserHomePageState extends State<UserHomePage> {
                                         onTap: () {
                                           launch('https://www.instagram.com/absolute_stay_coporate_livings/'); // Open Instagram URL
                                         },
-                                        child: Icon(
+                                        child: const Icon(
                                           FontAwesomeIcons.instagram,
                                         ),
                                       ),
@@ -295,7 +295,7 @@ class _UserHomePageState extends State<UserHomePage> {
                                         onTap: () {
                                           launch('https://www.facebook.com/absolutestaycorporate'); // Open Facebook URL
                                         },
-                                        child: Icon(
+                                        child: const Icon(
                                           FontAwesomeIcons.facebook,
                                         ),
                                       ),
@@ -304,7 +304,7 @@ class _UserHomePageState extends State<UserHomePage> {
                                         onTap: () {
                                           launch('https://twitter.com/AbsoluteStay'); // Open Twitter URL
                                         },
-                                        child: Icon(
+                                        child: const Icon(
                                           FontAwesomeIcons.twitter,
                                         ),
                                       ),
@@ -543,7 +543,7 @@ class _UserHomePageState extends State<UserHomePage> {
                             onTap: () {
                               launch('https://www.instagram.com/absolute_stay_coporate_livings/'); // Open Instagram URL
                             },
-                            child: Icon(
+                            child: const Icon(
                               FontAwesomeIcons.instagram,
                             ),
                           ),
@@ -552,7 +552,7 @@ class _UserHomePageState extends State<UserHomePage> {
                             onTap: () {
                               launch('https://www.facebook.com/absolutestaycorporate'); // Open Facebook URL
                             },
-                            child: Icon(
+                            child: const Icon(
                               FontAwesomeIcons.facebook,
                             ),
                           ),
@@ -561,7 +561,7 @@ class _UserHomePageState extends State<UserHomePage> {
                             onTap: () {
                               launch('https://twitter.com/AbsoluteStay'); // Open Twitter URL
                             },
-                            child: Icon(
+                            child: const Icon(
                               FontAwesomeIcons.twitter,
                             ),
                           ),

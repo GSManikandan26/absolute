@@ -182,15 +182,14 @@ class _LoginOptionsState extends State<LoginOptions> {
     );
   }
 
-  void _showAnimatedDialog(BuildContext context, Widget val) {
+  void _showAnimatedDialog(BuildContext context, var val) {
+    Navigator.of(context).pop(); // Close the current dialog
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return Center(
-          child: Dialog(
-            backgroundColor: Colors.transparent,
-            child: val,
-          ),
+        return Dialog(
+          backgroundColor: Colors.transparent,
+          child: val,
         );
       },
     );

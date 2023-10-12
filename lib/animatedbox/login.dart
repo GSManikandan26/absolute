@@ -118,6 +118,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void _showAnimatedDialog(BuildContext context, var val) {
+    Navigator.of(context).pop(); // Close the current dialog
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -202,7 +203,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: Text(
                       "Forgot password?",
                       style: TextStyle(
-                        color: customColor,
+                        color: customColor,fontSize: 15,
                       ),
                     ),
                   ),

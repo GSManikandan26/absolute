@@ -1,11 +1,10 @@
 import 'package:absolute/home/homepage.dart';
 import 'package:absolute/usable/input_field.dart';
-import 'package:absolute/usable/style.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
+import 'package:fluttertoast/fluttertoast.dart';
 import '../usable/TextField.dart';
-import 'login.dart';
+
 
 class OwnerLoginForm extends StatefulWidget {
   const OwnerLoginForm({Key? key});
@@ -96,7 +95,6 @@ class _OwnerLoginFormState extends State<OwnerLoginForm> {
 
   @override
   Widget build(BuildContext context) {
-    Style style = Style();
     return AnimatedContainer(
       duration: const Duration(milliseconds: 600),
       curve: Curves.easeInOut,
@@ -247,45 +245,53 @@ class _OwnerLoginFormState extends State<OwnerLoginForm> {
                         if (password != null && password.isNotEmpty) {
                           try {
                             UserCredential userCredential = await FirebaseAuth.instance
-                                .createUserWithEmailAndPassword(email: ownerEmail, password: password); // Use ownerEmail and password from your form
-                            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                                .createUserWithEmailAndPassword(email: ownerEmail, password: password);
+                            Fluttertoast.showToast(
+                              msg: "Registered Successfully",
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.BOTTOM,
+                              timeInSecForIosWeb: 1,
                               backgroundColor: Colors.black,
-                              content: Text(
-                                "Registered Successfully",
-                                style: TextStyle(fontSize: 20.0,color: Colors.white),
-                              ),
-                            ));
+                              textColor: Colors.white,
+                              fontSize: 20.0,
+                            );
                             Navigator.push(
                               context,
                               MaterialPageRoute(builder: (context) => const HomePage()),
                             );
                           } on FirebaseAuthException catch (e) {
                             if (e.code == 'weak-password') {
-                              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                                backgroundColor: Colors.orangeAccent,
-                                content: Text(
-                                  "Password Provided is too Weak",
-                                  style: TextStyle(fontSize: 18.0),
-                                ),
-                              ));
+                              Fluttertoast.showToast(
+                                msg: "Password Provided is too Weak",
+                                toastLength: Toast.LENGTH_SHORT,
+                                gravity: ToastGravity.BOTTOM,
+                                timeInSecForIosWeb: 1,
+                                backgroundColor: Colors.black,
+                                textColor: Colors.white,
+                                fontSize: 18.0,
+                              );
                             } else if (e.code == "email-already-in-use") {
-                              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                                backgroundColor: Colors.orangeAccent,
-                                content: Text(
-                                  "Account Already exists",
-                                  style: TextStyle(fontSize: 18.0),
-                                ),
-                              ));
+                              Fluttertoast.showToast(
+                                msg: "Account Already exists",
+                                toastLength: Toast.LENGTH_SHORT,
+                                gravity: ToastGravity.BOTTOM,
+                                timeInSecForIosWeb: 1,
+                                backgroundColor: Colors.black,
+                                textColor: Colors.white,
+                                fontSize: 18.0,
+                              );
                             }
                           }
                         } else {
-                          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                            backgroundColor: Colors.redAccent,
-                            content: Text(
-                              "Please Enter a Password",
-                              style: TextStyle(fontSize: 20.0),
-                            ),
-                          ));
+                          Fluttertoast.showToast(
+                            msg: "Please Enter a Password",
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.BOTTOM,
+                            timeInSecForIosWeb: 1,
+                            backgroundColor: Colors.black,
+                            textColor: Colors.white,
+                            fontSize: 20.0,
+                          );
                         }
                       },
                       style: ButtonStyle(
@@ -298,11 +304,11 @@ class _OwnerLoginFormState extends State<OwnerLoginForm> {
                           },
                         ),
                       ),
-                      child: Text(
+                      child: const Text(
                         'Register',
-                        style: style.txtStyle(txtColor: Colors.white),
+                        style: TextStyle(color: Colors.white),
                       ),
-                    )
+                    ),
                   ],
                 )
               ],
